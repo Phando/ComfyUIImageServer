@@ -1,0 +1,174 @@
+{
+  "4": {
+    "inputs": { "ckpt_name": "sd\\dreamshaper_8.safetensors" },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "6": {
+    "inputs": { "text": ["55", 0], "clip": ["4", 1] },
+    "class_type": "CLIPTextEncode"
+  },
+  "7": {
+    "inputs": { "text": ["55", 1], "clip": ["4", 1] },
+    "class_type": "CLIPTextEncode"
+  },
+  "26": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "inswapper_128.onnx",
+      "facedetection": "retinaface_resnet50",
+      "face_restore_model": "GFPGANv1.4.pth",
+      "face_restore_visibility": 1,
+      "codeformer_weight": 0.7000000000000001,
+      "detect_gender_source": "male",
+      "detect_gender_input": "male",
+      "source_faces_index": "0",
+      "input_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": ["56", 5],
+      "source_image": ["78", 0]
+    },
+    "class_type": "ReActorFaceSwap"
+  },
+  "28": {
+    "inputs": { "image": "background1.png", "upload": "image" },
+    "class_type": "LoadImage"
+  },
+  "29": {
+    "inputs": { "image": "vehicle5.png", "upload": "image" },
+    "class_type": "LoadImage"
+  },
+  "30": {
+    "inputs": { "image": "persona4.png", "upload": "image" },
+    "class_type": "LoadImage"
+  },
+  "43": { "inputs": { "masks": ["30", 1] }, "class_type": "Mask Invert" },
+  "50": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": false,
+      "destination": ["52", 0],
+      "source": ["30", 0],
+      "mask": ["43", 0]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "51": { "inputs": { "masks": ["29", 1] }, "class_type": "Mask Invert" },
+  "52": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": false,
+      "destination": ["28", 0],
+      "source": ["29", 0],
+      "mask": ["51", 0]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "53": {
+    "inputs": { "pixels": ["50", 0], "vae": ["4", 2] },
+    "class_type": "VAEEncode"
+  },
+  "55": {
+    "inputs": {
+      "text_positive": "photo of a rock star wearing leather, standing in front of a gray car, parked on a large plaza, in front of a museum, (at noon:1.3)",
+      "text_negative": "hands, hand, embedding:FastNegativeV2, embedding:bad-hands-5 ",
+      "style": "base",
+      "log_prompt": true
+    },
+    "class_type": "SDXLPromptStyler"
+  },
+  "56": {
+    "inputs": {
+      "seed": 891394262379596,
+      "steps": 30,
+      "cfg": 6,
+      "sampler_name": "dpmpp_2m_sde_gpu",
+      "scheduler": "karras",
+      "denoise": 0.4,
+      "preview_method": "auto",
+      "vae_decode": "true",
+      "model": ["4", 0],
+      "positive": ["77", 0],
+      "negative": ["77", 1],
+      "latent_image": ["53", 0],
+      "optional_vae": ["4", 2]
+    },
+    "class_type": "KSampler (Efficient)"
+  },
+  "63": {
+    "inputs": {
+      "low_threshold": 100,
+      "high_threshold": 200,
+      "resolution": 512,
+      "image": ["29", 0]
+    },
+    "class_type": "CannyEdgePreprocessor"
+  },
+  "64": { "inputs": { "images": ["63", 0] }, "class_type": "PreviewImage" },
+  "67": {
+    "inputs": { "mask1": ["51", 0], "mask2": ["43", 0] },
+    "class_type": "SubtractMask"
+  },
+  "69": { "inputs": { "images": ["72", 0] }, "class_type": "PreviewImage" },
+  "72": {
+    "inputs": {
+      "x": 0,
+      "y": 0,
+      "resize_source": true,
+      "destination": ["73", 0],
+      "source": ["63", 0],
+      "mask": ["67", 0]
+    },
+    "class_type": "ImageCompositeMasked"
+  },
+  "73": {
+    "inputs": {
+      "width": ["74", 0],
+      "height": ["74", 1],
+      "red": 0,
+      "green": 0,
+      "blue": 0
+    },
+    "class_type": "Image Blank"
+  },
+  "74": { "inputs": { "image": ["29", 0] }, "class_type": "Get Image Size" },
+  "76": {
+    "inputs": {
+      "control_net_name": "ControlNet-v1-1\\control_v11p_sd15_canny.pth"
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "77": {
+    "inputs": {
+      "strength": 0.8,
+      "start_percent": 0.1,
+      "end_percent": 0.9,
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "control_net": ["76", 0],
+      "image": ["72", 0]
+    },
+    "class_type": "ControlNetApplyAdvanced"
+  },
+  "78": {
+    "inputs": {
+      "keep_alpha_channel": false,
+      "output_mode": false,
+      "url": ""
+    },
+    "class_type": "LoadImageFromUrl"
+  },
+  "83": {
+    "inputs": {
+      "filename_prefix": "sicf_driver_1706727144",
+      "images": ["26", 0]
+    },
+    "class_type": "SaveImage"
+  },
+  "84": { "inputs": { "images": ["56", 5] }, "class_type": "PreviewImage" },
+  "86": {
+    "inputs": { "x": 0, "y": 0, "resize_source": true },
+    "class_type": "ImageCompositeMasked"
+  }
+}

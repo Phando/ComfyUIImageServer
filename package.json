@@ -1,0 +1,24 @@
+{
+  "name": "ai-image-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Joe Andolina",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.1",
+    "comfy-ui-client": "^0.1.2",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
+    "pino": "^8.18.0",
+    "uuid": "^9.0.1",
+    "ws": "^8.16.0"
+  }
+}

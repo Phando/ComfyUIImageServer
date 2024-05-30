@@ -1,0 +1,133 @@
+{
+  "9": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "14",
+        5
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "14": {
+    "inputs": {
+      "seed": 144337240199189,
+      "steps": 30,
+      "cfg": 6,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "preview_method": "none",
+      "vae_decode": "true",
+      "sharpness": 2,
+      "model": [
+        "20",
+        0
+      ],
+      "positive": [
+        "20",
+        1
+      ],
+      "negative": [
+        "20",
+        2
+      ],
+      "latent_image": [
+        "20",
+        3
+      ],
+      "optional_vae": [
+        "20",
+        4
+      ]
+    },
+    "class_type": "Fooocus_KSamplerEfficient",
+    "_meta": {
+      "title": "KSampler Efficient Fooocus"
+    }
+  },
+  "20": {
+    "inputs": {
+      "ckpt_name": "XL\\juggernautXL_juggernautX.safetensors",
+      "vae_name": "Baked VAE",
+      "clip_skip": -2,
+      "lora_name": "None",
+      "lora_model_strength": 1,
+      "lora_clip_strength": 1,
+      "positive": [
+        "29",
+        0
+      ],
+      "negative": [
+        "29",
+        1
+      ],
+      "token_normalization": "none",
+      "weight_interpretation": "comfy",
+      "empty_latent_width": [
+        "26",
+        1
+      ],
+      "empty_latent_height": [
+        "26",
+        2
+      ],
+      "batch_size": 1
+    },
+    "class_type": "Efficient Loader",
+    "_meta": {
+      "title": "Efficient Loader"
+    }
+  },
+  "23": {
+    "inputs": {
+      "text": "photo of stained glass windows from a church, flowers, aquatic motifs, by Giger, Tim Burton, Artgerm, hyperdetailed, solid black background"
+    },
+    "class_type": "Text Multiline",
+    "_meta": {
+      "title": "Positive"
+    }
+  },
+  "24": {
+    "inputs": {
+      "text": "text, watermark,"
+    },
+    "class_type": "Text Multiline",
+    "_meta": {
+      "title": "Negative"
+    }
+  },
+  "26": {
+    "inputs": {
+      "resolution": "1024x1024 (1.0)",
+      "batch_size": 1
+    },
+    "class_type": "SDXLEmptyLatentSizePicker+",
+    "_meta": {
+      "title": "Empty Latent Size"
+    }
+  },
+  "29": {
+    "inputs": {
+      "text_positive": [
+        "23",
+        0
+      ],
+      "text_negative": [
+        "24",
+        0
+      ],
+      "style": "base",
+      "log_prompt": true,
+      "style_positive": true,
+      "style_negative": true
+    },
+    "class_type": "SDXLPromptStyler",
+    "_meta": {
+      "title": "SDXL Prompt Styler"
+    }
+  }
+}
